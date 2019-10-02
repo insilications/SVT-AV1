@@ -4,10 +4,10 @@
 #
 Name     : SVT-AV1
 Version  : 0.7.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/OpenVisualCloud/SVT-AV1/archive/v0.7.0.tar.gz
 Source0  : https://github.com/OpenVisualCloud/SVT-AV1/archive/v0.7.0.tar.gz
-Summary  : GoogleTest (with main() function)
+Summary  : AV1-compliant encoder library core.
 Group    : Development/Tools
 License  : BSD-2-Clause-Patent BSD-3-Clause
 Requires: SVT-AV1-bin = %{version}-%{release}
@@ -75,7 +75,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1569965565
+export SOURCE_DATE_EPOCH=1570040048
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -91,7 +91,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1569965565
+export SOURCE_DATE_EPOCH=1570040048
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/SVT-AV1
 cp LICENSE.md %{buildroot}/usr/share/package-licenses/SVT-AV1/LICENSE.md
