@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : SVT-AV1
 Version  : 0.8.5
-Release  : 3
+Release  : 4
 URL      : file:///insilications/build/clearlinux/packages/SVT-AV1/SVT-AV1-v0.8.5.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/SVT-AV1/SVT-AV1-v0.8.5.tar.gz
 Summary  : AV1-compliant encoder library core.
@@ -24,7 +24,6 @@ BuildRequires : pkgconfig(gstreamer-1.0)
 BuildRequires : pkgconfig(gstreamer-base-1.0)
 BuildRequires : pkgconfig(gstreamer-video-1.0)
 BuildRequires : python3
-BuildRequires : yasm-bin
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -83,7 +82,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1600054572
+export SOURCE_DATE_EPOCH=1600056099
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -117,7 +116,7 @@ export MAKEFLAGS=%{?_smp_mflags}
 ##
 %define _lto_cflags 1
 ##
-%cmake .. -DNATIVE=ON -DBUILD_APPS=ON -DBUILD_DEC=ON -DBUILD_ENC=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DCMAKE_BUILD_TYPE=Release
+%cmake .. -DNATIVE=ON -DBUILD_APPS=ON -DBUILD_DEC=ON -DBUILD_ENC=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSTATIC_LINK_CRT=ON -DCMAKE_BUILD_TYPE=Release
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 mkdir -p clr-build-special
@@ -153,12 +152,12 @@ export MAKEFLAGS=%{?_smp_mflags}
 ##
 %define _lto_cflags 1
 ##
-%cmake .. -DNATIVE=ON -DBUILD_APPS=ON -DBUILD_DEC=ON -DBUILD_ENC=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DCMAKE_BUILD_TYPE=Release
+%cmake .. -DNATIVE=ON -DBUILD_APPS=ON -DBUILD_DEC=ON -DBUILD_ENC=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSTATIC_LINK_CRT=ON -DCMAKE_BUILD_TYPE=Release
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1600054572
+export SOURCE_DATE_EPOCH=1600056099
 rm -rf %{buildroot}
 pushd clr-build-special
 %make_install_special  || :
