@@ -11,6 +11,7 @@ Source0  : file:///aot/build/clearlinux/packages/SVT-AV1/SVT-AV1-v0.8.7.tar.gz
 Summary  : AV1-compliant encoder library core.
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: SVT-AV1-bin = %{version}-%{release}
 BuildRequires : Z3-dev
 BuildRequires : Z3-staticdev
 BuildRequires : binutils-dev
@@ -60,6 +61,34 @@ BuildRequires : zlib-staticdev
 # Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 The Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder) is an AV1-compliant encoder/decoder library core. The SVT-AV1 encoder development is a work-in-progress targeting performance levels applicable to both VOD and Live encoding / transcoding video applications. The SVT-AV1 decoder implementation is targeting future codec research activities.
 
+%package bin
+Summary: bin components for the SVT-AV1 package.
+Group: Binaries
+
+%description bin
+bin components for the SVT-AV1 package.
+
+
+%package dev
+Summary: dev components for the SVT-AV1 package.
+Group: Development
+Requires: SVT-AV1-bin = %{version}-%{release}
+Provides: SVT-AV1-devel = %{version}-%{release}
+Requires: SVT-AV1 = %{version}-%{release}
+
+%description dev
+dev components for the SVT-AV1 package.
+
+
+%package staticdev
+Summary: staticdev components for the SVT-AV1 package.
+Group: Default
+Requires: SVT-AV1-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the SVT-AV1 package.
+
+
 %prep
 %setup -q -n SVT-AV1
 cd %{_builddir}/SVT-AV1
@@ -70,7 +99,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621160867
+export SOURCE_DATE_EPOCH=1621161357
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -134,7 +163,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 
 export LD_LIBRARY_PATH=".:../Bin/Release:$LD_LIBRARY_PATH"
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/harry.y4m --preset 8 --profile 0 --rc 1 –-tbr 20000
-../Bin/Release/SvtAv1EncApp -i /opt/fprofile/eyes.y4m --preset 8 --profile 0 --rc 1 –-tbr 20000
+../Bin/Release/SvtAv1EncApp -i /opt/fprofile/eyes.y4m --preset 8 --profile 0 --rc 0 --crf 30
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/allied.y4m --preset 7 --profile 0 -q 50
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/harry2.y4m --preset 7 --profile 0 --rc 1 –-tbr 20000 --enable-hdr 1
 find . -type f,l -not -name '*.gcno' -not -name 'statuspgo*' -delete -print
@@ -159,7 +188,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621160867
+export SOURCE_DATE_EPOCH=1621161357
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -167,3 +196,26 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/SvtAv1DecApp
+/usr/bin/SvtAv1EncApp
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/svt-av1/EbDebugMacros.h
+/usr/include/svt-av1/EbSvtAv1.h
+/usr/include/svt-av1/EbSvtAv1Dec.h
+/usr/include/svt-av1/EbSvtAv1Enc.h
+/usr/include/svt-av1/EbSvtAv1ErrorCodes.h
+/usr/include/svt-av1/EbSvtAv1ExtFrameBuf.h
+/usr/include/svt-av1/EbSvtAv1Formats.h
+/usr/include/svt-av1/EbSvtAv1Metadata.h
+/usr/lib64/pkgconfig/SvtAv1Dec.pc
+/usr/lib64/pkgconfig/SvtAv1Enc.pc
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libSvtAv1Dec.a
+/usr/lib64/libSvtAv1Enc.a
