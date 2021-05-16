@@ -1,5 +1,6 @@
 PKG_NAME := SVT-AV1
-URL = https://github.com/insilications/SVT-AV1-clr.git
+URL = https://gitlab.com/AOMediaCodec/SVT-AV1.git
 ARCHIVES = 
+ARCHIVES_GIT = 
 
 include ../common/Makefile.common

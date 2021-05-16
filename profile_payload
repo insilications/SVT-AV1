@@ -1,5 +1,5 @@
 export LD_LIBRARY_PATH=".:../Bin/Release:$LD_LIBRARY_PATH"
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/harry.y4m --preset 8 --profile 0 --rc 1 –-tbr 20000
-../Bin/Release/SvtAv1EncApp -i /opt/fprofile/eyes.y4m --preset 8 --profile 0 --rc 1 –-tbr 20000
+../Bin/Release/SvtAv1EncApp -i /opt/fprofile/eyes.y4m --preset 8 --profile 0 --rc 0 --crf 30
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/allied.y4m --preset 7 --profile 0 -q 50
 ../Bin/Release/SvtAv1EncApp -i /opt/fprofile/harry2.y4m --preset 7 --profile 0 --rc 1 –-tbr 20000 --enable-hdr 1
